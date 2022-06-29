@@ -1,0 +1,2 @@
+#!/bin/bash
+#SCRIPT INICIAL DEL SERVIDOR
