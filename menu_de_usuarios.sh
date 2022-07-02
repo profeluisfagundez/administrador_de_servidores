@@ -48,4 +48,27 @@ function agregar_usuario(){
 	fi
 }
 
+function borrar_usuario(){
+	clear
+	#Nomeclatura del usuario apellidonombre
+	echo "Ingrese el apellido y nombre del usuario en formato: apellidonombre: "
+	read nombre
+	usuario=$(echo $nombre | tr [:upper:] [:lower:])
+	nomb=$(cat /etc/passwd | grep -c $usuario)
+	if [ $nomb -eq 1 ]; then
+		echo "El usuario $usuario será eliminado del sistema, está seguro que desea eliminarlo S/N ?"
+        read letra
+        if [ $letra == 'S' -o == 's' ]; then
+            echo "Usuario eliminado del sistema, presione enter para continuar"
+            echo "$(date +%Y-%m-%d-%H:%M:%S) Usuario: $nomb eliminado del sistema" >> /root/log/log_propios/usuarios.txt
+		    read pausa
+        else
+            echo "Operación cancelada, presione enter para volver al menú principal"
+            read pausa
+	else
+        echo "Operación cancelada, presione enter para volver al menú principal"
+        read pausa
+    fi    
+}
+
 #********************************************************************************************************************
