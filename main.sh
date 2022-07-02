@@ -3,9 +3,10 @@
 
 function menu(){
     echo "MENÚ PRINCIPAL"
-    echo "1 - Menú de gestión de usuarios"
-    echo "2 - Menú de gestión de grupos"
-    echo "3 - Menu de gestión de respaldos"
-    echo "4 - Menú de gestión de redes"
+    echo "1 - Gestión de usuarios"
+    echo "2 - Gestión de grupos"
+    echo "3 - Gestión de respaldos"
+    echo "4 - Gestión de redes"
+    echo "5 - Gestión de Bases de datos"
     echo "0 - Salir"
 }
