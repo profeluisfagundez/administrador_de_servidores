@@ -5,7 +5,7 @@ year=$(date +%Y-%m-%d)
 #*****************
 
 #FUNCIONES**********************************************************************************************************
-function menu() {
+function menu(){
 	clear
 	echo "MENÚ DE GESTIÓN DE USUARIOS"
 	echo "1 - Agregar usuario"
@@ -76,5 +76,69 @@ function listar_usuarios(){
     cut -d ":" -f 1 /etc/passwd | sort | more
     echo "Presione enter para volver al menú principal"
     read pausa
+}
+
+function buscar_usuario(){ 
+	clear
+	#Nomeclatura del usuario apellidonombre
+	echo "Ingrese el apellido y nombre del usuario en formato: apellidonombre: "
+	read nombre
+	usuario=$(echo $nombre | tr [:upper:] [:lower:])
+	if [ $nomb -eq 1 ]; then
+		echo "El usuario: $usuario existe en el sistema, presione enter para continuar"
+		read pausa
+	else
+		echo "El usuario: $usuario no existe en el sistema, presione enter para continuar"
+		read pausa
+	fi
+}
+
+function cambiar_contra_usuario(){ 
+	clear
+	#Nomeclatura del usuario apellidonombre
+	echo "Ingrese el apellido y nombre del usuario en formato: apellidonombre: "
+	read nombre
+	usuario=$(echo $nombre | tr [:upper:] [:lower:])
+	if [ $nomb -eq 1 ]; then
+		echo "Se procede a cambiar la contraseña al usuario $usuario"
+		passwd $usuario
+		read pausa
+	else
+		echo "El usuario: $usuario no existe en el sistema, presione enter para continuar"
+		read pausa
+	fi
+}
+
+function bloquear_usuario(){
+	clear
+	#Nomeclatura del usuario apellidonombre
+	echo "Ingrese el apellido y nombre del usuario en formato: apellidonombre: "
+	read nombre
+	usuario=$(echo $nombre | tr [:upper:] [:lower:])
+	if [ $nomb -eq 1 ]; then
+		echo "Se procede a bloquear la cuenta del usuario $usuario"
+		 passwd -lock usuario
+		read pausa
+	else
+		echo "El usuario: $usuario no existe en el sistema, presione enter para continuar"
+		read pausa
+	fi
+}
+
+function desbloquear_usuario{
+	clear
+	#Nomeclatura del usuario apellidonombre
+	echo "Ingrese el apellido y nombre del usuario en formato: apellidonombre: "
+	read nombre
+	usuario=$(echo $nombre | tr [:upper:] [:lower:])
+	if [ $nomb -eq 1 ]; then
+		echo "Se procede a desbloquear la cuenta del usuario $usuario"
+		 passwd -u usuario
+		read pausa
+	else
+		echo "El usuario: $usuario no existe en el sistema, presione enter para continuar"
+		read pausa
+	fi
+}	
 }
 #********************************************************************************************************************
