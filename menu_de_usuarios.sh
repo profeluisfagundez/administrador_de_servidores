@@ -71,4 +71,10 @@ function borrar_usuario(){
     fi    
 }
 
+function listar_usuarios(){
+    echo "USUARIOS DEL SISTEMA"
+    cut -d ":" -f 1 /etc/passwd | sort | more
+    echo "Presione enter para volver al menú principal"
+    read pausa
+}
 #********************************************************************************************************************
