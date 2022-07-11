@@ -1,6 +1,6 @@
 #!/bin/bash
 #VARIABLES********
-opc=0
+opc=10
 year=$(date +%Y-%m-%d)
 #*****************
 
@@ -15,7 +15,7 @@ function menu(){
 	echo "5 - Cambiar contraseña de un usuario"
 	echo "6 - Bloquear usuario"
 	echo "7 - Desbloquear usuario"
-	echo "8 - Salir"
+	echo "0 - Salir"
 }
 
 function agregar_usuario(){
@@ -65,6 +65,7 @@ function borrar_usuario(){
         else
             echo "Operación cancelada, presione enter para volver al menú principal"
             read pausa
+		fi
 	else
         echo "Operación cancelada, presione enter para volver al menú principal"
         read pausa
@@ -125,7 +126,7 @@ function bloquear_usuario(){
 	fi
 }
 
-function desbloquear_usuario{
+function desbloquear_usuario(){
 	clear
 	#Nomeclatura del usuario apellidonombre
 	echo "Ingrese el apellido y nombre del usuario en formato: apellidonombre: "
@@ -140,5 +141,31 @@ function desbloquear_usuario{
 		read pausa
 	fi
 }	
-}
+
+while [ $opc -ne 0 ]
+do
+	clear
+	menu
+	read -p "Ingrese la opción correspondiente: " opc
+	case $opc in
+	1)
+		agregar_usuario;;
+	2)
+		borrar_usuario;;
+	3)
+		listar_usuarios;;
+	4)
+		buscar_usuario;;
+	5)
+		cambiar_contra_usuario;;
+	6)
+		bloquear_usuario;;
+	7)
+		desbloquear_usuario;;
+	0)
+		echo "Volviendo al menú principal"; break ;; 
+	*)
+		echo "Seleccionó una opción incorrecta";;
+	esac
+done
 #********************************************************************************************************************
