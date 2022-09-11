@@ -118,7 +118,7 @@ function bloquear_usuario(){
 	usuario=$(echo $nombre | tr [:upper:] [:lower:])
 	if [ $nomb -eq 1 ]; then
 		echo "Se procede a bloquear la cuenta del usuario $usuario"
-		 passwd -lock usuario
+		 usermod -L usuario
 		read pausa
 	else
 		echo "El usuario: $usuario no existe en el sistema, presione enter para continuar"
@@ -134,7 +134,7 @@ function desbloquear_usuario(){
 	usuario=$(echo $nombre | tr [:upper:] [:lower:])
 	if [ $nomb -eq 1 ]; then
 		echo "Se procede a desbloquear la cuenta del usuario $usuario"
-		 passwd -u usuario
+		 usermod -U usuario
 		read pausa
 	else
 		echo "El usuario: $usuario no existe en el sistema, presione enter para continuar"
