@@ -9,5 +9,6 @@ function menu(){
     echo "4 - Gestión de redes"
     echo "5 - Gestión de Bases de datos"
     echo "6 - Gestión de Firewall"
+    echo "7 - Gestión de Logs del Sistema"
     echo "0 - Salir"
 }
