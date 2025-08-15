@@ -18,14 +18,14 @@ function menu(){
 	echo "0 - Salir"
 }
 
-function listarUsuarios(){
+function listar_usuarios(){
     echo "Listando usuarios..."
     cut -d ":" -f1 /etc/passwd | sort | more
     echo "Presione una tecla para continuar..."
     read pausa
 }
 
-function buscarUsuario(){
+function buscar_usuario(){
     echo "Ingrese el nombre del usuario a buscar en el sistema"
     read usuario
     user=$(echo $usuario | tr [:upper:] [:lower:])
@@ -38,7 +38,7 @@ function buscarUsuario(){
     fi
 }
 
-function agregarUsuarios(){
+function agregar_usuario(){
     clear
     echo "Ingrese el nombre del usuario a dar de alta en el sistema"
     read usuario
@@ -89,13 +89,13 @@ do
 	read -p "Ingrese la opción correspondiente: " opc
 	case $opc in
 	1)
-		echo "agregar_usuario"; read a ;;
+		agregar_usuario ;;
 	2)
-		echo "borrar_usuario"; read a ;;
+		borrar_usuario ;;
 	3)
 		listarUsuarios ;;
 	4)
-		echo "buscar_usuario"; read a ;;
+		buscarUsuario ;;
 	5)
 		echo "cambiar_contra_usuario"; read a ;;
 	6)
