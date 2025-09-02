@@ -27,7 +27,7 @@ function agregar_usuario(){
 	nomb=$(cat /etc/passwd | grep -c $usuario)
 	if [ $nomb -eq 1 ]; then
 		echo "El usuario ya existe"
-		echo "$(date +%Y-%m-%d-%H:%M:%S) Se trato de crear un usuario con el nombre $nomb pero el usuario ya existe en /etc/passwd" >> /root/log/log_propios/usuarios.txt
+		echo "El usuario $USER en la fecha $(date +%Y-%m-%d-%H:%M:%S) trato de crear un usuario con el nombre $nomb pero el usuario ya existe en /etc/passwd" >> /root/log/log_propios/usuarios.txt
 		read pausa
 	else
 		echo "Ingrese el grupo: "
@@ -36,7 +36,7 @@ function agregar_usuario(){
 		grup=$(cat /etc/group | grep -c $user_group)
 		if [ $grup -eq 1 ]; then
 			useradd -g $user_group -c "$user_group $year" -mk /etc/skel -s /bin/bash $usuario
-			echo "$(date +%Y-%m-%d-%H:%M:%S) se agrego el usuario $usuario perteneciente al grupo $grup al sistema" >> /root/log/log_propios/usuarios.txt
+			echo "El usuario $USER en la fecha $(date +%Y-%m-%d-%H:%M:%S) agrego el usuario $usuario perteneciente al grupo $grup al sistema" >> /root/log/log_propios/usuarios.txt
 			passwd -e -d $usuario
 			echo "usuario dado de alta"
 			read pausa
