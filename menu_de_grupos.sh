@@ -21,6 +21,54 @@ function listar_grupos(){
     echo "Presione enter para volver al menú principal"
     read pausa
 }
+
+function agregar_grupo(){
+	read -p "Ingrese el nombre del grupo a agregar: " grupoUsuario
+	grupo=$(echo $grupoUsuario | tr [:upper:] [:lower:])
+	if [ $(getent group $grupo) ]; then
+		echo "El grupo $grupo ya existe en el sistema"
+	else
+		groupadd $grupo
+		if [ $? -eq 0 ]; then
+			echo "Grupo $grupo agregado exitosamente"
+		else
+			echo "Error al agregar el grupo $grupo"
+		fi
+	fi
+	echo "Presione enter para volver al menú principal"
+	read pausa
+}
+
+function borrar_grupo(){
+	read -p "Ingrese el nombre del grupo a borrar: " grupoUsuario
+	grupo=$(echo $grupoUsuario | tr [:upper:] [:lower:])
+	if [ $(getent group $grupo) ]; then
+		groupdel $grupo
+		if [ $? -eq 0 ]; then
+			echo "Grupo $grupo borrado exitosamente"
+		else
+			echo "Error al borrar el grupo $grupo"
+		fi
+	else
+		echo "El grupo $grupo no existe en el sistema"
+	fi
+	echo "Presione enter para volver al menú principal"
+	read pausa
+}
+
+function buscar_grupo(){
+	read -p "Ingrese el nombre del grupo a buscar: " grupoUsuario
+	grupo=$(echo $grupoUsuario | tr [:upper:] [:lower:])
+	if [ $(getent group $grupo) ]; then
+		echo "El grupo $grupo existe en el sistema"
+	else
+		echo "El grupo $grupo no existe en el sistema"
+	fi
+	echo "Presione enter para volver al menú principal"
+	read pausa
+}
+
+
 #***************************************************************************************************************
 
 #MAIN***********************************************************************************************************
