@@ -23,7 +23,7 @@ function agregar_usuario(){
 	#Nomeclatura del usuario apellidonombre
 	echo "Ingrese el apellido y nombre del usuario en formato: apellidonombre: "
 	read nombre
-	usuario=$(echo $nombre | tr [:upper:] [:lower:])
+	nomb=$(echo $nombre | tr [:upper:] [:lower:])
 	nomb=$(cat /etc/passwd | grep -c $usuario)
 	if [ $nomb -eq 1 ]; then
 		echo "El usuario ya existe"
@@ -36,8 +36,9 @@ function agregar_usuario(){
 		grup=$(cat /etc/group | grep -c $user_group)
 		if [ $grup -eq 1 ]; then
 			useradd -g $user_group -c "$user_group $year" -mk /etc/skel -s /bin/bash $usuario
+			echo "$usuario:12345" | chpasswd
 			echo "El usuario $USER en la fecha $(date +%Y-%m-%d-%H:%M:%S) agrego el usuario $usuario perteneciente al grupo $grup al sistema" >> /root/log/log_propios/usuarios.txt
-			passwd -e -d $usuario
+			# passwd -e -d $usuario
 			echo "usuario dado de alta"
 			read pausa
 		else
