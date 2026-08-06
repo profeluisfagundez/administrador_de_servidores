@@ -11,20 +11,21 @@ function menu(){
     echo "5 - Gestión de Bases de datos"
     echo "6 - Gestión de Firewall"
     echo "7 - Gestión de Logs del Sistema"
-    echo "8 - Salir"
+    echo "8 - Gestión de Docker"
+    echo "9 - Salir"
     echo "Ingrese una opción: "
 }
 
 
-while [ $opc -ne 8 ];
+while [ $opc -ne 9 ];
 do
     menu
     read opc
     case $opc in
         1)
-            echo "Gestión de Usuarios";;
+            ./menu_de_usuarios.sh ;;
         2)
-            echo "Gestión de Grupos";;
+            ./menu_de_grupos.sh ;;
         3)
             echo "Gestión de Respaldos";;
         4)
@@ -32,7 +33,7 @@ do
         5)
             echo "Gestión de Bases de Datos";;
         6)
-            echo "Gestión de Firewall";;
+            ./menu_de_gestion_firewall.sh ;;
         7)
             echo "Gestión de Logs";;
         8)
