@@ -27,7 +27,7 @@ do
         2)
             ./menu_de_grupos.sh ;;
         3)
-            echo "Gestión de Respaldos";;
+            ./menu_de_gestion_respaldos.sh ;;
         4)
             echo "Gestión de Redes";;
         5)

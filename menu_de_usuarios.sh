@@ -7,7 +7,9 @@ year=$(date +%Y-%m-%d)
 #FUNCIONES**********************************************************************************************************
 function menu(){
 	clear
-	echo "MENÚ DE GESTIÓN DE USUARIOS"
+	echo "========================================="
+    echo "       MENÚ DE GESTIÓN DE USUARIOS       "
+    echo "========================================="
 	echo "1 - Agregar usuario"
 	echo "2 - Borrar usuario"
 	echo "3 - Listar usuarios del sistema"
@@ -16,6 +18,7 @@ function menu(){
 	echo "6 - Bloquear usuario"
 	echo "7 - Desbloquear usuario"
 	echo "0 - Salir"
+    echo "========================================="
 }
 
 function agregar_usuario(){

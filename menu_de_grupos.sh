@@ -7,12 +7,15 @@ year=$(date +%Y-%m-%d)
 #FUNCIONES******************************************************************************************************
 function menu(){
 	clear
-	echo "MENÚ DE GESTIÓN DE USUARIOS"
+	echo "========================================="
+    echo "       MENÚ DE GESTIÓN DE GRUPOS         "
+    echo "========================================="
 	echo "1 - Agregar grupo"
 	echo "2 - Borrar grupo"
 	echo "3 - Listar grupo del sistema"
 	echo "4 - Buscar un grupo en el sistema"
 	echo "0 - Salir"
+    echo "========================================="
 }
 
 function listar_grupos(){

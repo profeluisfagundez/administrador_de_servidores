@@ -1,13 +1,6 @@
 #!/bin/bash
-
-# Asegurarse de que el script se ejecute como root
-if [ $USER == 'root' ]; then
-  echo "Por favor, ejecuta este script como root (sudo)."
-  exit 1
-fi
-
 # VARIABLES
-opc=99
+opc=10
 fecha=$(date +"%Y-%m-%d")
 
 # FUNCIONES
@@ -15,7 +8,7 @@ fecha=$(date +"%Y-%m-%d")
 function menu(){
     clear
     echo "========================================="
-    echo "       GESTIÓN DE FIREWALLD Y SELINUX    "
+    echo "       GESTIÓN DE FIREWALLD              "
     echo "========================================="
     echo "1 - Verificar estado de FirewallD"
     echo "2 - Permitir HTTP y HTTPS"
