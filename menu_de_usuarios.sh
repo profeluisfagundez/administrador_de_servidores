@@ -27,8 +27,8 @@ function agregar_usuario(){
 	echo "Ingrese el apellido y nombre del usuario en formato: apellidonombre: "
 	read nombre
 	nomb=$(echo $nombre | tr [:upper:] [:lower:])
-	nomb=$(cat /etc/passwd | grep -c $usuario)
-	if [ $nomb -eq 1 ]; then
+	existe=$(cat /etc/passwd | grep -c $nomb)
+	if [ $existe -eq 1 ]; then
 		echo "El usuario ya existe"
 		echo "El usuario $USER en la fecha $(date +%Y-%m-%d-%H:%M:%S) trato de crear un usuario con el nombre $nomb pero el usuario ya existe en /etc/passwd" >> /root/log/log_propios/usuarios.txt
 		read pausa
@@ -36,18 +36,16 @@ function agregar_usuario(){
 		echo "Ingrese el grupo: "
 		read grupo
 		user_group=$(echo $grupo | tr [:upper:] [:lower:])
-		grup=$(cat /etc/group | grep -c $user_group)
-		if [ $grup -eq 1 ]; then
-			useradd -g $user_group -c "$user_group $year" -mk /etc/skel -s /bin/bash $usuario
-			echo "$usuario:12345" | chpasswd
-			echo "El usuario $USER en la fecha $(date +%Y-%m-%d-%H:%M:%S) agrego el usuario $usuario perteneciente al grupo $grup al sistema" >> /root/log/log_propios/usuarios.txt
-			# passwd -e -d $usuario
+		existe=$(cat /etc/group | grep -c $user_group)
+		if [ $existe -eq 1 ]; then
+			useradd -g $user_group -c "$user_group $year" -mk /etc/skel -s /bin/bash $nomb
 			echo "$nomb:12345" | chpasswd
+			echo "El usuario $USER en la fecha $(date +%Y-%m-%d-%H:%M:%S) agrego el usuario $nomb perteneciente al grupo $user_group al sistema" >> /root/log/log_propios/usuarios.txt
 			echo "usuario dado de alta, se le asigno la contraseña 12345"
 			read pausa
 		else
 			echo "El grupo no existe"
-            echo "$(date +%Y-%m-%d-%H:%M:%S) se trato de agregar el grupo $grup al sistema pero el grupo ya existe." >> /root/log/log_propios/grupos.txt
+            echo "$(date +%Y-%m-%d-%H:%M:%S) se trato de agregar el grupo $user_group al sistema pero el grupo ya existe." >> /root/log/log_propios/grupos.txt
 			read pausa
 		fi
 	fi
@@ -58,12 +56,12 @@ function borrar_usuario(){
 	#Nomeclatura del usuario apellidonombre
 	echo "Ingrese el apellido y nombre del usuario en formato: apellidonombre: "
 	read nombre
-	usuario=$(echo $nombre | tr [:upper:] [:lower:])
-	nomb=$(cat /etc/passwd | grep -c $usuario)
-	if [ $nomb -eq 1 ]; then
-		echo "El usuario $usuario será eliminado del sistema, está seguro que desea eliminarlo S/N ?"
+	nomb=$(echo $nombre | tr [:upper:] [:lower:])
+	existe=$(cat /etc/passwd | grep -c $nomb)
+	if [ $existe -eq 1 ]; then
+		echo "El usuario $nomb será eliminado del sistema, está seguro que desea eliminarlo S/N ?"
         read letra
-        if [ $letra == 'S' -o == 's' ]; then
+        if [ $letra == 'S' -o $letra == 's' ]; then
             echo "Usuario eliminado del sistema, presione enter para continuar"
             echo "$(date +%Y-%m-%d-%H:%M:%S) Usuario: $nomb eliminado del sistema" >> /root/log/log_propios/usuarios.txt
 		    read pausa
@@ -89,12 +87,13 @@ function buscar_usuario(){
 	#Nomeclatura del usuario apellidonombre
 	echo "Ingrese el apellido y nombre del usuario en formato: apellidonombre: "
 	read nombre
-	usuario=$(echo $nombre | tr [:upper:] [:lower:])
-	if [ $nomb -eq 1 ]; then
-		echo "El usuario: $usuario existe en el sistema, presione enter para continuar"
+	nomb=$(echo $nombre | tr [:upper:] [:lower:])
+	existe=$(cat /etc/passwd | grep -c $nomb)
+	if [ $existe -eq 1 ]; then
+		echo "El usuario: $nomb existe en el sistema, presione enter para continuar"
 		read pausa
 	else
-		echo "El usuario: $usuario no existe en el sistema, presione enter para continuar"
+		echo "El usuario: $nomb no existe en el sistema, presione enter para continuar"
 		read pausa
 	fi
 }
@@ -104,13 +103,14 @@ function cambiar_contra_usuario(){
 	#Nomeclatura del usuario apellidonombre
 	echo "Ingrese el apellido y nombre del usuario en formato: apellidonombre: "
 	read nombre
-	usuario=$(echo $nombre | tr [:upper:] [:lower:])
-	if [ $nomb -eq 1 ]; then
-		echo "Se procede a cambiar la contraseña al usuario $usuario"
-		passwd $usuario
+	nomb=$(echo $nombre | tr [:upper:] [:lower:])
+	existe=$(cat /etc/passwd | grep -c $nomb)
+	if [ $existe -eq 1 ]; then
+		echo "Se procede a cambiar la contraseña al usuario $nomb"
+		passwd $nomb
 		read pausa
 	else
-		echo "El usuario: $usuario no existe en el sistema, presione enter para continuar"
+		echo "El usuario: $nomb no existe en el sistema, presione enter para continuar"
 		read pausa
 	fi
 }
@@ -120,13 +120,14 @@ function bloquear_usuario(){
 	#Nomeclatura del usuario apellidonombre
 	echo "Ingrese el apellido y nombre del usuario en formato: apellidonombre: "
 	read nombre
-	usuario=$(echo $nombre | tr [:upper:] [:lower:])
-	if [ $nomb -eq 1 ]; then
-		echo "Se procede a bloquear la cuenta del usuario $usuario"
-		 usermod -L usuario
+	nomb=$(echo $nombre | tr [:upper:] [:lower:])
+	existe=$(cat /etc/passwd | grep -c $nomb)
+	if [ $existe -eq 1 ]; then
+		echo "Se procede a bloquear la cuenta del usuario $nomb"
+		 usermod -L $nomb
 		read pausa
 	else
-		echo "El usuario: $usuario no existe en el sistema, presione enter para continuar"
+		echo "El usuario: $nomb no existe en el sistema, presione enter para continuar"
 		read pausa
 	fi
 }
@@ -136,13 +137,14 @@ function desbloquear_usuario(){
 	#Nomeclatura del usuario apellidonombre
 	echo "Ingrese el apellido y nombre del usuario en formato: apellidonombre: "
 	read nombre
-	usuario=$(echo $nombre | tr [:upper:] [:lower:])
-	if [ $nomb -eq 1 ]; then
-		echo "Se procede a desbloquear la cuenta del usuario $usuario"
-		 usermod -U usuario
+	nomb=$(echo $nombre | tr [:upper:] [:lower:])
+	existe=$(cat /etc/passwd | grep -c $nomb)
+	if [ $existe -eq 1 ]; then
+		echo "Se procede a desbloquear la cuenta del usuario $nomb"
+		 usermod -U $nomb
 		read pausa
 	else
-		echo "El usuario: $usuario no existe en el sistema, presione enter para continuar"
+		echo "El usuario: $nomb no existe en el sistema, presione enter para continuar"
 		read pausa
 	fi
 }	
