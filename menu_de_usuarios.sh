@@ -42,7 +42,8 @@ function agregar_usuario(){
 			echo "$usuario:12345" | chpasswd
 			echo "El usuario $USER en la fecha $(date +%Y-%m-%d-%H:%M:%S) agrego el usuario $usuario perteneciente al grupo $grup al sistema" >> /root/log/log_propios/usuarios.txt
 			# passwd -e -d $usuario
-			echo "usuario dado de alta"
+			echo "$nomb:12345" | chpasswd
+			echo "usuario dado de alta, se le asigno la contraseña 12345"
 			read pausa
 		else
 			echo "El grupo no existe"
