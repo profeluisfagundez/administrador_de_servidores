@@ -82,6 +82,7 @@ function listar_respaldos(){
 function configurar_programacion_respaldos(){
     clear
     echo "--- Configurando programación de respaldos ---"
+    crontab -e
     echo "Programación de respaldos configurada exitosamente."
     read -p "Presione ENTER para continuar..." pausa
 }
